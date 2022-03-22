@@ -1,0 +1,187 @@
+////////////////////////////////////////////////////////////////////////////////
+// range ///////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+function range(start, end, step = 1) {
+  if(step < 0){
+    return [];  
+  }
+
+  const arr = [];
+
+  if(start < end){
+    for(let i = start; i <= end; i += step){
+      arr.push(i);
+    }
+  } else if(start > end){
+    for(let i = end; i <= start; i += step){
+      arr.unshift(i); 
+    }
+  }
+return arr; 
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// sum /////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+function sum(arr) {
+  let count = 0; 
+
+  for(let i = 0; i < arr.length; i++){
+    count += arr[i]; 
+  }
+
+return count; 
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// reverseArray ////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+function reverseArray(array) {
+  const newArr = []; 
+
+  for(let i = 0; i < array.length; i++){
+    newArr.unshift(array[i]);
+  }
+  return newArr; 
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// reverseArrayInPlace /////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//[1, 2, 3, 4, 5]
+function reverseArrayInPlace(arr) {
+let array = arr; 
+let copyArr = [...arr]; 
+
+for(let y = array.length - 1; y >= 0; y--){ 
+  for(let i = 0; i < array.length; i++){ //i = 0 -> 1, ->2, -> 3 -> 4 // y = 4 -> 3-> 2 -> 1 -> 0
+    if(i === y){
+      break; 
+    } else{
+      let front = copyArr[i];
+      let back = copyArr[copyArr.length - 1 - i]
+      array[i] = back; 
+      array [array.length - 1 - i] = front
+    }
+  }
+}
+
+return array; 
+}
+//swap 1 and 5
+//swap 2 and 4
+
+////////////////////////////////////////////////////////////////////////////////
+// arrayToList /////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//produces a list from an array [1, 2, 3] {value: [i], rest: {value: [i], rest: null}
+
+function arrayToList(arr, n = 0){
+  return (n < arr.length) ? {value: arr[n], rest: arrayToList(arr, n + 1)} : null;
+} 
+
+////////////////////////////////////////////////////////////////////////////////
+// listToArray /////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//produces an array from a list. {value: 1, rest: {value: 2, rest: {value: 3 rest: null}}}
+function listToArray(list, arr = []) {
+
+  arr.push(list.value);
+  return list.rest !== null ? listToArray(list.rest, arr) : arr; 
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// prepend /////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//creates a new list that adds the element to the front of the list 
+function prepend(element, list) {
+  return {
+    value: element, 
+    rest: list, 
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// nth /////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//returns the element at the given position in the list / undefined when there is no such element 
+function nth(list, number) {
+  return listToArray(list)[number];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// deepEqual ///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+function deepEqual(val1, val2) {
+  
+
+  if(typeof val1 !== typeof val2){
+    return false; 
+  } 
+
+  if(JSON.stringify(val1) === JSON.stringify(val2)){
+    return true; 
+  }
+
+  let keys1 = Object.keys(val1); 
+  let keys2 = Object.keys(val2); 
+  let vals1 = Object.values(val1); 
+  let vals2 = Object.values(val2); 
+  
+  if(typeof val1 === "object" && typeof val2 === "object"){
+    if(keys1.length === 0 && keys2.length === 0){
+      return true; 
+      } else{
+        for(let i = 0; i < keys1.length; i++){
+          if(keys1[i] !== keys2[i]){
+            return false; 
+          } else if(vals1[i]!== vals2[i]){
+              return false; 
+            } else{
+              return true; 
+            }
+            }
+          
+        }
+      }
+  return false; 
+  }
+
+  /*
+else if(Array.isArray(vals1[i]) && Array.isArray(vals2[i]) ){
+                for(let y = 0; y < keys2[i].length; i++){
+                  if(vals1[i][y] !== vals2[i][y]){
+                    return false; 
+                  }
+                }
+            }
+  */
+
+  //else if(Object.values(val1) === Object.values(val2) && Object.keys(val1) === Object.keys(val2)){
+
+
+////////////////////////////////////////////////////////////////////////////////
+// DON'T REMOVE THIS CODE //////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+if ((typeof process !== 'undefined') &&
+  (typeof process.versions.node !== 'undefined')) {
+  module.exports = {
+    range,
+    sum,
+    reverseArray,
+    reverseArrayInPlace,
+    arrayToList,
+    listToArray,
+    prepend,
+    nth,
+    deepEqual,
+  };
+};
