@@ -6,7 +6,7 @@
 * 1. First, define the function and follow that function definition with parentheses - if applicable, include parameters within the parentheses and within the code block/curly brackets create the function body to be executed when the function is called.
 * Once the function has been created, invoke/call the function through the function's name and parentheses - if applicable, include arguments within the parentheses,
 *
-* 2. A function's parameters act as placeholder variables within the function. When a function is called, arguments are the values passed to the function's parameters.
+* 2. A function's parameters act as placeholder variables within the function. When a function is called, arguments are the inputs/values passed to the function's parameters.
 *
 * 3. A named function consists of: the function keyword, the name of the function, parentheses (which can hold parameters, if applicable), and a code block containing statements that make up the body of the function.
 *
@@ -39,41 +39,53 @@ function fightMonsters(type){ //example of a function declaration
  }
   
  // 1.2 Function Call
- // Functions are called/invoked with the function name/reference and { }
- let fightMonsters = type => { //example of an arrow function
+ // Functions are called/invoked with the function name/reference and parentheses. 
+ // If the function contains parameters, arguments are included within the parentheses to take the place of the associated parameter.
+
+ function fightMonsters(type){ //example of a function declaration
     if(type === "Vampire"){
         return "Stab him with the pointy end!"
     } else if(type === "Werewolf"){
-        return "Quick shoot them with the silver bullet!"
+        return "Grab the gun and the silver bullet!"
     } else if(type === "Basilisk"){
-        return "Slay him with Gryffindor's sword!"
+        return "Grab Gryffindor's sword!"
     } else{
         return "Run away!"
     }
  }
 
+ //Below is the function call 
  console.log(fightMonsters("Baba Yaga")); // prints => "Run away!""
   
  // 2. Parameters vs Arguments //
- //If there are more parameters than arguments passed in, those parameters that were not assigned a value will have the value undefined.
+ //Parameters act as placeholders until arguments are inputted into the function during the function call. 
+ //Parameters have the same behavior as variables, and will have the value undefined until the arguments are inputted/'assigned' to the parameter.
  
  var russianMonst = 
  {
      name: "Baba Yaga",
      classification: "witch", 
-     houseMobility: "confirmed"
+     houseType: "house has chicken legs"
  }
+ var germanMonst = 
+ {
+     name: "Old Woman",
+     classification: "witch", 
+     houseType: "house is made of candy"
+ } 
+ var response = "Holy sh**, that" 
 
- var response = "Holy sh**, that house has chicken legs!"
-  
- function monsterDetermination(monster, reaction){ // This function has three parameters: type, classification, isHouseMobile
-    if(monster.name === "Baba Yaga" && monster.classification === "witch" && monster.houseMobility === "confirmed"){
-        return reaction; 
+ function monsterDetermination(monster, reaction){ // This function has two parameters: 'monster' and 'reaction' - these two parameters are placeholders until the specific arguments are inputted in the function 
+    if(monster.classification === "witch"){
+        return `${reaction} ${monster.houseType}!`; 
     }
  }
-  
- console.log(monsterDetermination(russianMonst, response)); // prints => "Holy sh**, that house has chicken legs!""
- console.log(monsterDetermination(russianMonst)); // prints => undefined
+
+ //Below 'russianMonst' and 'response' are the arguments/values inputted into the function to take the place of the placeholder parameters: 'monster' and 'reactions'
+ console.log(monsterDetermination(russianMonst, response)); // prints => "Holy sh**, that house has chicken legs!"
+
+ //Below 'germanMonst' and 'response' are the arguments/values inputted into the function to take the place of the placeholder parameters: 'monster' and 'reactions'
+ console.log(monsterDetermination(germanMonst, response)); //prints => "Holy sh**, that house is made of candy!" 
 
  // 3. Named Function Syntax //
  // Named functions can be function declarations or function expressions, although function expressions do not have to be named and can be anonymous
@@ -125,10 +137,9 @@ function fightMonsters(type){ //example of a function declaration
  console.log(monsterRepellant("Banshee")); // prints undefined
 
  // 6. Scopes //
- // Variables that are declared within these function scopes cannot be seen/used/modified outside of the function.
-  
+ //Variables that are declared within these function scopes cannot be seen/used/modified outside of the function.
+ //Example 1: 
  var classification = "Monster"; //gobal variable that can still be accessed and used by the function
-  
  var fightMonsters = type => {
     var areTheyScary = "Yes!" //local variable that can only be accessed within the function
     
@@ -145,6 +156,26 @@ function fightMonsters(type){ //example of a function declaration
     
  console.log(fightMonsters("Banshee")()); // prints => "Plug your ears!"
  console.log(areTheyScary); // error: areTheyScary is not defined
+
+ //Example 2: 
+
+ var companions = ["Rose", "Clara", "Donna"]
+ var rankings = {
+     1: "the best",
+     2: "2nd best",
+     3: "the worst"
+ }
+ function drWho(array, index){ //function #1 is able to access the global scope but is NOT able to access the scopes of function #2 or #3
+    var companion = array[index]; //
+    return function (key){ //function #2 is able to access the global scope and its parent function's (#1) scope, but is NOT able to access #3's scope
+    var rank = rankings[key]
+        return function (reason){ //function #3 is able to access the global variables and both its parent functions scopes (#2 and #3) (ie able to access all scopes)
+            return `${companion} is ${rank} because she is ${reason}.`; //because it is able to access all parent scopes, it is able to use the variables companion and rank to write out an undisputable truth
+        }
+    }
+ }
+
+console.log(drWho(companions, 1)(3)("so goddamn annoying")); // prints "Clara is the worst because she is so goddamn annoying."
   
  // 7. Closures //
  // Closures preserves the parent function's variables within their local scope.

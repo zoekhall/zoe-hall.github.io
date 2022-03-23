@@ -12,8 +12,9 @@
 */
  
 // 1. while Loops //
-// while loop syntax is made up of the expression to be evaluated before each loop iteration and the statements to be executed each time the expression is evaluated as true.  
- 
+// while loop syntax is made up of the expression to be evaluated before each loop iteration and the statements to be executed each time the expression is evaluated as true. 
+// For while loops, you have to include a base value so that eventually the expression will evaluate to false. 
+
 // 1.1 while Loop Forwards
 function allTogetherNow(num){
    while(num <= 11){
@@ -24,7 +25,7 @@ function allTogetherNow(num){
            console.log("I love you!")
        }else{console.log(num);
        };
-       num++
+       num++ //this is the increment/decrement base value 
     }
 }
 
@@ -45,12 +46,12 @@ console.log(newYears(10)) //prints => 10 9 8 7 6 5 4 3 2 1 "Happy New Years!"
 
 // 2. for Loops //
 //for Loops are most commonly used to iterate through an array index.
-//for Loops are made up of an initialization statement that defines the loop variable, a condition statement that tells the loop when to stop, incrementation expression that increments/decrements your loop counter.
+//for Loops are made up of: a start/initialization statement that defines the loop variable, an update/conditional statement that tells the loop when to stop, and an update/incrementation expression that increments/decrements your loop counter.
  
 // 2.1 for Loops Forwards
 var names = ["Marvin Gaye", "Gladys Knight", "Al Green", "Tammi Terrell"]
 var motownArtists = [];
-for(var i = 0; i < names.length; i++ ){
+for(var i = 0; i < names.length; i++ ){ //(initialization/start statement; conditional/stop statement; increment/update expression)
    motownArtists.push(names[i]);
 }
 

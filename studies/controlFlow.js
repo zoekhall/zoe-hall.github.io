@@ -23,7 +23,8 @@ if("vampire" === "vampire"){ //if this evaluates as true, the statement will be 
  console.log(response); //prints => "Get away from my neck!"
   
  //1.2. else if Statement
- //Multiple else if statements can be chained to an if statement to test multiple conditions.
+ //Multiple else if statements can be chained to an if statement to test multiple conditions
+ //When there are multiple conditionals, the else if statement will only execute if it's condition has been found true and previous conditions have been found false 
   
  if("vampire" === "human"){ //evaluates as false will move to the else if statement
     var response = "Just act natural";
